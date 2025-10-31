@@ -20,13 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $niveau = htmlspecialchars(trim($_POST['niveau']));
     $motivation = htmlspecialchars(trim($_POST['motivation']));
     $competences = htmlspecialchars(trim($_POST['competences']));
-    
+
     if (empty($prenom) || empty($nom) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = 'Veuillez remplir tous les champs obligatoires correctement.';
     } else {
         try {
             $mail = new PHPMailer(true);
-            
+
             // Configuration SMTP
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
@@ -36,17 +36,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
             $mail->CharSet = 'UTF-8';
-            
+
             // =====================
             // 1. EMAIL POUR LE CLUB
             // =====================
             $mail->setFrom('ucaotech@gmail.com', 'UCAO-TECH');
             $mail->addAddress('ucaotech@gmail.com');
             $mail->addReplyTo($email, $prenom . ' ' . $nom);
-            
+
             $mail->isHTML(true);
             $mail->Subject = "🔔 Nouvelle demande d'adhésion - " . $prenom . " " . $nom;
-            
+
             $club_message = "
             <!DOCTYPE html>
             <html>
@@ -186,19 +186,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </body>
             </html>
             ";
-            
+
             $mail->Body = $club_message;
             $mail->send();
-            
+
             // =============================
             // 2. EMAIL DE CONFIRMATION USER
             // =============================
             $mail->clearAddresses();
             $mail->addAddress($email);
             $mail->addReplyTo('ucaotech@gmail.com', 'UCAO-TECH');
-            
+
             $mail->Subject = "✅ Confirmation de votre demande d'adhésion - UCAO-TECH";
-            
+
             $user_message = "
             <!DOCTYPE html>
             <html>
@@ -429,12 +429,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </body>
             </html>
             ";
-            
+
             $mail->Body = $user_message;
             $mail->send();
-            
+
             $success_message = '🎉 Votre demande a été envoyée avec succès ! Vous recevrez un email de confirmation détaillé dans quelques minutes.';
-            
         } catch (Exception $e) {
             $error_message = "❌ Erreur lors de l'envoi: " . $e->getMessage();
             error_log("Erreur PHPMailer: " . $e->getMessage());
@@ -444,17 +443,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adhésion - Association Scientifique</title>
-        <link rel="icon" href="media/ucaotech.png" type="image/x-icon">
+    <link rel="icon" href="media/ucaotech.png" type="image/x-icon">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Lien vers la feuille de style externe -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/adhesion.css">
 </head>
+
 <body>
     <!-- Header supérieur -->
     <div class="header-top">
@@ -475,7 +476,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <header class="header-main">
         <div class="container">
             <div class="header-content">
-                    <div class="logo">
+                <div class="logo">
                     <!-- Logo temporaire - à remplacer par le vrai logo -->
                     <a href="index.php"><img src="media/UCAO-TECH.png" alt="Logo AS UCAO-TECH"></a>
                 </div>
@@ -517,19 +518,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <!-- ################################### Contenu de la page #################################### -->
-    
+
 
     <!-- Section Contenu Principal -->
     <section class="adhesion-section">
         <div class="adhesion-container">
             <!-- En-tête Hero -->
             <div class="adhesion-hero">
-                <h1>Rejoignez UCAO-TECH</h1>
+                <h1>Prêt à Nous Rejoindre ?</h1>
                 <div class="adhesion-section">
-             <div class="container">
-             <h2 class="typing-animation">Rejoignez notre communauté d'innovateurs passionnés</h2>
-            </div>
-        </div>
+                    <div class="container">
+                        <p class="typing-animation">Ne manquez pas cette opportunité de faire partie d'une communauté technologique dynamique et innovante</p>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#formulaire-section" class="btn btn-primary">
+                        <i class="fas fa-edit"></i>
+                        Adhérer Maintenant
+                    </a>
+                    <a href="contact.php" class="btn btn-secondary">
+                        <i class="fas fa-question-circle"></i>
+                        Nous Contacter
+                    </a>
+                </div>
             </div>
 
             <!-- Section Avantages -->
@@ -560,7 +571,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <h3>Formations Exclusives</h3>
                         <p>Bénéficiez de workshops et formations avec des experts du domaine</p>
                     </div>
-                    <div class="avantage-card">
+                    <!-- <div class="avantage-card">
                         <div class="avantage-icon">
                             <i class="fas fa-trophy"></i>
                         </div>
@@ -573,7 +584,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                         <h3>Opportunités Professionnelles</h3>
                         <p>Accédez à des offres de stage et d'emploi en partenariat avec nos entreprises</p>
-                    </div>
+                    </div> -->
                     <div class="avantage-card">
                         <div class="avantage-icon">
                             <i class="fas fa-users"></i>
@@ -584,43 +595,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
-            <!-- Section Processus -->
-            <div class="processus-section">
-                <div class="section-title">
-                    <h2>Comment Adhérer ?</h2>
-                    <p>Le processus d'adhésion en 4 étapes simples</p>
-                </div>
-                <div class="processus-steps">
-                    <div class="process-step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Remplir le Formulaire</h4>
-                            <p>Complétez le formulaire d'adhésion en ligne avec vos informations</p>
-                        </div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Vérification</h4>
-                            <p>Consulter sa boite e-mail pour la vérification de son inscription après quelqus minutes</p>
-                        </div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Entretien</h4>
-                            <p>Participez à un entretien de motivation avec notre équipe</p>
-                        </div>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h4>Confirmation</h4>
-                            <p>Recevez votre confirmation et intégrez la communauté</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Section Tarifs -->
             <div class="tarifs-section">
@@ -633,123 +607,110 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="tarif-type">Étudiant UCAO-EGEI</div>
                         <div class="tarif-prix">200 FCFA<span>/séance</span></div>
                         <ul class="tarif-features">
-                            <li>Toute demande d’admission   implique   l’adhésion   sans   réserve   aux   statuts   de l’Association</li>    
+                            <li>Toute demande d’admission implique l’adhésion sans réserve aux dispositions statutaires et aux règlement intérieur de l’Association</li>
                             <li>Accès à tous les événements</li>
                             <li>Participation aux workshops</li>
-                            <li>Accès à la communauté Uchat</li>
                             <li>Support technique de base</li>
                             <li>Certificat de participation</li>
-                            <li>Tous les avantages Étudiant</li>
                             <li>Participation aux projets</li>
-                            <li>Accès aux formations avancées</li>
-                            <li>Mentorat personnalisé</li>
                         </ul>
                     </div>
-                    </div>
-                    </div>
                 </div>
             </div>
+        </div>
+        </div>
 
-            <!-- Section Formulaire -->
-     <div class="formulaire-section">
-                <div class="form-header">
-             <h2>Formulaire d'Adhésion</h2>
-             <p>Remplissez ce formulaire pour rejoindre l'association UCAO-TECH</p>
-    
-    <?php if (!empty($success_message)): ?>
-        <div class="alert alert-success" style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #c3e6cb;">
-            <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
-        </div>
-    <?php endif; ?>
-    
-    <?php if (!empty($error_message)): ?>
-        <div class="alert alert-error" style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #f5c6cb;">
-            <i class="fas fa-exclamation-circle"></i> <?php echo $error_message; ?>
-        </div>
-    <?php endif; ?>
-</div>
-                <!-- Modifiez votre formulaire pour inclure les name attributes -->
-<form id="adhesion-form" method="POST" action="">
-    <div class="form-grid">
-        <div class="form-group">
-            <label for="prenom">Prénom *</label>
-            <input type="text" id="prenom" name="prenom" class="form-control" placeholder="Jean" required>
-        </div>
-        <div class="form-group">
-            <label for="nom">Nom *</label>
-            <input type="text" id="nom" name="nom" class="form-control" placeholder="Dupont"required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="telephone">Téléphone *</label>
-            <input type="tel" id="telephone" name="telephone" class="form-control" placeholder="(+229)" required>
-        </div>
-        <div class="form-group">
-            <label for="filiere">Filière *</label>
-            <select id="filiere" name="filiere" class="form-control form-select" required>
-                <option value="">Sélectionnez votre filière</option>
-                <option value="informatique">Informatique Industriel & Maintenance (IIM)</option>
-                <option value="telecom">Génie Télécoms & TICs (GTTICs)</option>
-                <option value="genie">Electrotechnique (ELT)</option>
-                <option value="autre">Autre</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="niveau">Niveau d'études *</label>
-            <select id="niveau" name="niveau" class="form-control form-select" required>
-                <option value="">Sélectionnez votre niveau</option>
-                <option value="licence1">Licence 1</option>
-                <option value="licence2">Licence 2</option>
-                <option value="licence3">Licence 3</option>
-                <option value="master1">Master 1</option>
-                <option value="master2">Master 2</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="motivation">Motivation *</label>
-        <textarea id="motivation" name="motivation" class="form-control" rows="5" placeholder="Decriver ici votre motiation " required></textarea>
-    </div>
-    <div class="form-group">
-        <label for="competences">Compétences & Intérêts</label>
-        <textarea id="competences" name="competences" class="form-control" rows="3" placeholder="Vos compétences et Intérêts"></textarea>
-    </div>
-    <div class="checkbox-group">
-                        <input type="checkbox" id="reglement" required>
-                        <label for="reglement"><a href="document.php">J'accepte le règlement intérieur du club et m'engage à respecter les valeurs d'UCAO-TECH </a></label>
+        <!-- Section Formulaire -->
+        <div id="formulaire-section" class="formulaire-section">
+            <div class="form-header">
+                <h2>Formulaire d'Adhésion</h2>
+                <p>Remplissez ce formulaire pour rejoindre l'association UCAO-TECH</p>
+
+                <?php if (!empty($success_message)): ?>
+                    <div class="alert alert-success" style="background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #c3e6cb;">
+                        <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
                     </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="newsletter">
-                        <label for="newsletter">Je souhaite recevoir la newsletter et les informations sur les événements</label>
+                <?php endif; ?>
+
+                <?php if (!empty($error_message)): ?>
+                    <div class="alert alert-error" style="background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #f5c6cb;">
+                        <i class="fas fa-exclamation-circle"></i> <?php echo $error_message; ?>
                     </div>
-                    <div class="form-submit">
-                        <button type="submit" class="btn-submit">
-                            <i class="fas fa-paper-plane"></i>
-                            Soumettre ma candidature
-                        </button>
+                <?php endif; ?>
+            </div>
+            <!-- Modifiez votre formulaire pour inclure les name attributes -->
+            <form id="adhesion-form" method="POST" action="">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="prenom">Prénom *</label>
+                        <input type="text" id="prenom" name="prenom" class="form-control" placeholder="Jean" required>
                     </div>
-     </form>
-</div>
-            <!-- Section CTA -->
-            <div class="cta-section">
-                <div class="cta-content">
-                    <h2>Prêt à Nous Rejoindre ?</h2>
-                    <p>Ne manquez pas cette opportunité de faire partie d'une communauté technologique dynamique et innovante</p>
-                    <div class="cta-buttons">
-                        <a href="#formulaire-section" class="btn btn-primary">
-                            <i class="fas fa-edit"></i>
-                            Adhérer Maintenant
-                        </a>
-                        <a href="contact.php" class="btn btn-secondary">
-                            <i class="fas fa-question-circle"></i>
-                            Nous Contacter
-                        </a>
+                    <div class="form-group">
+                        <label for="nom">Nom *</label>
+                        <input type="text" id="nom" name="nom" class="form-control" placeholder="Dupont" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone *</label>
+                        <input type="tel" id="telephone" name="telephone" class="form-control" placeholder="(+229)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="filiere">Filière *</label>
+                        <select id="filiere" name="filiere" class="form-control form-select" required>
+                            <option value="">Sélectionnez votre filière</option>
+                            <option value="informatique">Informatique Industriel & Maintenance (IIM)</option>
+                            <option value="telecom">Génie Télécoms & TICs (GTTICs)</option>
+                            <option value="genie">Electrotechnique (ELT)</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="niveau">Niveau d'études *</label>
+                        <select id="niveau" name="niveau" class="form-control form-select" required>
+                            <option value="">Sélectionnez votre niveau</option>
+                            <option value="licence1">Licence 1</option>
+                            <option value="licence2">Licence 2</option>
+                            <option value="licence3">Licence 3</option>
+                            <option value="master1">Master 1</option>
+                            <option value="master2">Master 2</option>
+                        </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="motivation">Motivation *</label>
+                    <textarea id="motivation" name="motivation" class="form-control" rows="5" placeholder="Decriver ici votre motiation " required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="competences">Compétences & Intérêts</label>
+                    <textarea id="competences" name="competences" class="form-control" rows="3" placeholder="Vos compétences et Intérêts"></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="reglement" required>
+                    <label for="reglement"><a href="document.php">J'accepte le règlement intérieur du club et m'engage à respecter les valeurs d'UCAO-TECH </a></label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter">
+                    <label for="newsletter">Je souhaite recevoir la newsletter et les informations sur les événements</label>
+                </div>
+                <div class="form-submit">
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        Soumettre ma candidature
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- Section CTA -->
+        <div class="cta-section">
+            <div class="cta-content">
+                <h2></h2>
+                <p></p>
+
             </div>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -807,4 +768,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="js/script.js"></script>
     <script src="js/adhesion.js"></script>
 </body>
+
 </html>

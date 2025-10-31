@@ -115,6 +115,7 @@
     </section>
 
     <!-- Section Documents -->
+
     <section class="documents-section">
         <div class="container">
             <div class="section-header">
@@ -216,6 +217,7 @@
                         'telechargements' => 10,
                         'est_important' => false
                     ],
+                    
                     [
                         'id' => 5,
                         'titre' => 'Règlement intérieur UCAO TECH',
@@ -371,6 +373,7 @@
                             </button>
                         </div>
                     </div>';
+                    
                 }
                 ?>
             </div>

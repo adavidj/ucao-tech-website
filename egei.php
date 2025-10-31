@@ -253,9 +253,7 @@
                         <div class="member-photo-container">
                             <div class="member-photo">
                                 <img src="" alt="Dr Sossou HOUNDEDAKO">
-                                <!-- <div class="photo-overlay">
-                                    <i class="fas fa-user-tie"></i>
-                                </div> -->
+                                
                             </div>
                         </div>
                         <div class="card-header">
@@ -291,7 +289,7 @@
                         <div class="card-body">
                             <div class="member-contact">
                                 <p><i class="fas fa-phone"></i> (+229) 97144668</p>
-                                <p><i class="fas fa-envelope"></i> c.agossou@ucaobenin.org</p>
+                                <p><i class="fas fa-envelope"></i> </p>
                             </div>
                         </div>
                     </div>
@@ -301,9 +299,7 @@
                         <div class="member-photo-container">
                             <div class="member-photo">
                                 <img src="" alt="M. Aristide GOUBIYI">
-                                <!-- <div class="photo-overlay">
-                                    <i class="fas fa-user-cog"></i>
-                                </div> -->
+                               
                             </div>
                         </div>
                         <div class="card-header">
@@ -326,9 +322,7 @@
                         <div class="member-photo-container">
                             <div class="member-photo">
                                 <img src="" alt="M. Vivien de SOUZA">
-                                <!-- <div class="photo-overlay">
-                                    <i class="fas fa-user-shield"></i>
-                                </div> -->
+                                
                             </div>
                         </div>
                         <div class="card-header">
@@ -347,18 +341,7 @@
                     </div>
                 </div>
                 
-                <!-- <div class="slider-controls">
-                    <button class="slider-btn prev-btn" id="prevBtn">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="slider-dots">
-                        <span class="dot active" data-index="0"></span>
-                        <span class="dot" data-index="1"></span>
-                    </div>
-                    <button class="slider-btn next-btn" id="nextBtn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div> -->
+                
             </div>
             
             <!-- Informations supplémentaires -->
